@@ -3,8 +3,12 @@ package com.darcikhey.weather.entity;
 public class City {
 
     private String name;
-    private int cityId;
+    private String cityId;
 
+    public City(String name, String cityId) {
+        this.name = name;
+        this.cityId = cityId;
+    }
     public String getName() {
         return name;
     }
@@ -13,11 +17,11 @@ public class City {
         this.name = name;
     }
 
-    public int getCityId() {
+    public String getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 }
