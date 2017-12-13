@@ -5,16 +5,18 @@ import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class CityRepository {
@@ -29,7 +31,6 @@ public class CityRepository {
         citiesRepository.put(1212, new City("Seattle", "1212"));
         addSpokaneAndSeattle();
     }
-
     private void addSpokaneAndSeattle() {
 
         try {
@@ -40,13 +41,23 @@ public class CityRepository {
             connection.connect();
 
             InputStream content = (InputStream) connection.getInputStream();
+
             BufferedReader in = new BufferedReader(new InputStreamReader(content));
 //            JSONParser parser = new JSONParser();
 //            JSONObject json = (JSONObject) parser.parse(stringToParse);
-            String line;
+            String jsonString = "";
+
+            String line = "";
             while ((line = in.readLine()) != null) {
-                System.out.println(line);
+                //System.out.println(line);
+                jsonString += line;
             }
+            InputStream fin = new FileInputStream((jsonString));
+            JsonReader jsonReader = Json.createReader(fin);
+            JsonObject jsonObject = jsonReader.readObject();
+            String name = jsonObject.getString("name");
+            System.out.println(name);
+
         } catch (MalformedURLException e) {
             System.out.println("MalformedURLException--");
             System.out.println(e.getMessage());
