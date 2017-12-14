@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- jquery  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Darci tiny weather API</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-light bg-primary">
+            <h1 class="navbar-brand mb-0">Darci Tiny Weather Dashboard API</h1>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h4>Before getting any weather information from a city, a city has to added to the database with add api (POST call)
+        </h4>
+        <p>use POST to add a city to the database, then use GET to get weather info for that city that you just entered</p>
+        <br />
+        <div class="row">
+            <p th:text="${name}">some name</p>
+            <h3>Weather Widget API</h3>
+            <div class="col-md-4">
+                <h4>POST</h4>
+                <strong>For adding a city to the database </strong>
+                <p>darcikhey.com/api/v1/add?city={city_name}</p>
+                <div class="example-code">
+                    <pre>
+$.ajax({
+    type: 'POST',
+    url: '/api/v1/weather/city/add/',
+    data: { city_name: name },
+    success: function (data) {
+        // do something with data
+    }
+});
+                    </pre>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Test POST <small>type city name</small></h4>
+                <small>add city to database</small>
+                <input type="text" id="city-name"/>
+                <button class="btn btn-danger" id="btn-add-post">Add</button>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Results</h4>
+                <p id="status">status...</p>
+                <p id="code-post"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>GET</h4>
+                <strong>For getting a city by name </strong>
+                <p>darcikhey.com/api/v1/weather/get?city_name={city_name}</p>
+                <strong>For getting a city by id </strong>
+                <p>darcikhey.com/api/v1/weather/get?city_id={id_number}</p>
+                <strong>For getting a all cities in database</strong>
+                <p>darcikhey.com/api/v1/weather/get?city_all=all</p>
+                <div class="example-code">
+                    <pre>
+$.ajax({
+    type: 'GET',
+    url: '/api/v1/weather/get?city_name='+name,
+    success: function (data) {
+        // use data
+    }
+});
+                    </pre>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Test GET <small>type city name</small></h4>
+                <small>get city weather data</small>
+                <input type="text" id="city-name-get" />
+                <button class="btn btn-danger" id="btn-add-get">Get</button>
+            </div>
+            <div class="col-md-4">
+                <h4>Results</h4>
+                <p id="status">status...</p>
+                <p id="code-get"></p>
+
+                <div class="container">
+                    <table class="table" id="my-table">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>UPDATE</h4>
+                <strong>For updating a city weather information by city name</strong>
+                <p>darcikhey.com/api/v1/update?city={city_name}</p>
+                <strong>For updating a city weather information by city id</strong>
+                <p>darcikhey.com/api/v1/update?city_id={id_number}}</p>
+                <strong>To update all cities in database</strong>
+                <p>darcikhey.com/api/v1/update?city=all</p>
+                <br />
+            </div>
+            <div class="col-md-4">
+                <h4>Test UPDATE <small>type city name</small></h4>
+                <small>update weather data</small>
+                <input type="text" id="city-name-update"/>
+                <button class="btn btn-danger" id="btn-update">Update</button>
+            </div>
+            <div class="col-md-4">
+                <h4>Results</h4>
+                <p id="status">status...</p>
+                <p id="code-update"></p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>DELETE</h4>
+                <strong>To delete a city by name</strong>
+                <p>darcikhey.com/api/v1/delete?city={city_name}</p>
+                <strong>To Delete a city by using city_id</strong>
+                <p>darcikhey.com/api/v1/update?city_id={id_number}}</p>
+                <strong>To delete all cities in database</strong>
+                <p>darcikhey.com/api/v1/delete?city=all</p>
+                <br />
+            </div>
+            <div class="col-md-4">
+                <h4>Test DELETE</h4>
+                <small>delete weather data</small>
+                <input type="text" id="city-name-delete"/>
+                <button class="btn btn-danger" id="btn-delete">Delete</button>
+            </div>
+            <div class="col-md-4">
+                <h4>Results</h4>
+                <p id="status">status...</p>
+                <p id="code-delete"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <footer>
+            <small>weather data provided by
+                <a href="https://openweathermap.org/">OpenWeatherMap</a>
+            </small>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.*;
@@ -53,10 +54,11 @@ public class CityRepository {
             JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
             JsonObject jsonObject = jsonReader.readObject();
             String cityName = jsonObject.getString("name");
-            String cityId = jsonObject.getString("id");
+            Integer cityId = jsonObject.getInt("id");
+
 
             // add the city to the db
-            citiesRepository.put(Integer.parseInt(cityId), new City(cityName, cityId));
+            citiesRepository.put(cityId, new City(cityName, cityId.toString()));
 
         } catch (MalformedURLException e) {
             System.out.println("MalformedURLException--");
