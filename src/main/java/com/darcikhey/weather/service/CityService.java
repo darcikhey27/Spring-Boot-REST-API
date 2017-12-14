@@ -19,9 +19,9 @@ public class CityService {
 
     }
 
-    public void add(JsonObject city) {
-        String cityName = city.getString("city_name");
-        City cityObj = this.cityRepository.creatCity(cityName);
+    public void add(String city) {
+        City cityObj = this.cityRepository.createCity(city);
+        System.out.println("in Cityservice "+ cityObj.toString());
         this.cityRepository.addCity(Integer.parseInt(cityObj.getCityId()), cityObj);
     }
 }

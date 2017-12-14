@@ -24,4 +24,8 @@ public class City {
     public void setCityId(String cityId) {
         this.cityId = cityId;
     }
+
+    public String toString() {
+        return this.name + " "+ this.cityId;
+    }
 }

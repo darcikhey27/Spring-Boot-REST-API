@@ -4,6 +4,7 @@ package com.darcikhey.weather.controller;
 import com.darcikhey.weather.entity.City;
 import com.darcikhey.weather.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import java.util.Collection;
 
 
 @Controller
-@RequestMapping("/city")
 public class CityController {
 
     @Autowired
@@ -33,10 +33,12 @@ public class CityController {
         return this.cityService.getAllCities();
     }
 
-    // POST will pass in json value
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addCity(@RequestBody JsonObject cityJson) {
-        this.cityService.add(cityJson);
+    // POST will pass in text value
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = "text/plain")
+    public void addCity(@RequestBody String city) {
+        System.out.println(city);
+        this.cityService.add(city);
     }
 
 

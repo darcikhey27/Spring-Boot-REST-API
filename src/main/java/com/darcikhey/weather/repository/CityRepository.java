@@ -30,9 +30,9 @@ public class CityRepository {
         citiesRepository = new HashMap<>();
         citiesRepository.put(1234, new City("Test", "1234"));
         citiesRepository.put(1212, new City("Seattle", "1212"));
-       creatCity("Spokane");
+       createCity("Spokane");
     }
-    public City creatCity(String cityName) {
+    public City createCity(String cityName) {
 
         String cityNameJson = "";
         Integer cityId = 0;
@@ -72,7 +72,7 @@ public class CityRepository {
             System.out.println("IOException--");
             System.out.println(e.getMessage());
         }
-        return new City(cityId.toString(), cityName);
+        return new City(cityNameJson, cityId.toString());
     }
 
     public void addCity(Integer id, City city) {
