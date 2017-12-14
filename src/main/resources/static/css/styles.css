@@ -1,3 +1,12 @@
+body {
+    background: #DCD0C0;
+    color: #373737;
+
+}
+#navbar {
+    background-color: #373737;
+    color: #f4f4f4;
+}
 .widget {
     width: 200px;
     height: 250px;
@@ -18,6 +27,6 @@ pre {
 #code-post {
     font-family: Courier New, Courier, monospace;
     font-size: small;
-    color: #c12e2a;
+    color: #c0b283;
     text-align: left;
 }

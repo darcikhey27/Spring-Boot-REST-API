@@ -40,10 +40,13 @@ function btnAddCity() {
     console.log("btn click");
     // TODO: -> validate name makesure they type a good string
     var name = $("#city-name").val();
+    var formdata = {city_name : name};
     $.ajax({
         type: 'POST',
-        url: '/city',
-        data: { city_name: name },
+        url: 'http://localhost:8080/add',
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",
+        data: JSON.stringify(formdata),
         success: function (data) {
             console.log("loggin data");
             console.log(data);
