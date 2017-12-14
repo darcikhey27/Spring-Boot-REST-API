@@ -25,8 +25,10 @@ public class CityRepository {
     private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
     //$json  = file_get_contents(Location::$BASE_URL + $city_name + Location::$API_KEY);
     private static HashMap<Integer, City> citiesRepository;
+    private static HashMap<Integer, JsonObject> citiesJsonRepo;
 
     public CityRepository() {
+        citiesJsonRepo = new HashMap<>();
         citiesRepository = new HashMap<>();
         citiesRepository.put(1234, new City("Test", "1234"));
         citiesRepository.put(1212, new City("Seattle", "1212"));
@@ -58,7 +60,8 @@ public class CityRepository {
             cityNameJson = jsonObject.getString("name");
             cityId = jsonObject.getInt("id");
 
-
+            // add to the json repo
+            citiesJsonRepo.put(cityId, jsonObject);
             // add the city to the db
             citiesRepository.put(cityId, new City(cityNameJson, cityId.toString()));
 
@@ -77,12 +80,30 @@ public class CityRepository {
 
     public void addCity(Integer id, City city) {
         citiesRepository.put(id, city);
+        createCity(city.getName());
         System.out.println("Adding city to repository");
     }
 
-    public Collection<City> getAllCities() {
-        return citiesRepository.values();
+    public String getAllCities() {
+        System.out.println(citiesJsonRepo.toString());
+        return citiesJsonRepo.values().toString();
     }
 
 
+    public int getCityByName(String cityName) {
+        int found = -1;
+        for (int i : citiesRepository.keySet()) {
+            if(citiesRepository.get(i).getName().equalsIgnoreCase(cityName)) {
+                found = i;
+            }
+        }
+        if(found >= 0) {
+            return found;
+        }
+        return -1;
+    }
+
+    public String getCityById(int location) {
+        return citiesJsonRepo.get(location).toString();
+    }
 }

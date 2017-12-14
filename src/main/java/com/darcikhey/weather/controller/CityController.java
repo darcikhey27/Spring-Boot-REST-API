@@ -30,13 +30,19 @@ public class CityController {
         return "index";
     }
     // GET
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Collection<City> getCities() {
+    public String getAllCities() {
         System.out.println("in getCities");
         return this.cityService.getAllCities();
     }
 
+    @RequestMapping(value = "/get/{cityName}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public String getCityByName(@PathVariable("cityName") String cityName) {
+        System.out.println("the json string is "+ cityName);
+        return this.cityService.getCityByName(cityName);
+    }
     // POST will pass in text value
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -46,6 +52,12 @@ public class CityController {
         String city_name = jsonObject.getString("city_name");
         System.out.println(city_name);
         this.cityService.add(city_name);
+    }
+
+
+    private JsonObject getJsonObj(String s) {
+        JsonReader jsonReader = Json.createReader(new StringReader(s));
+        return jsonReader.readObject();
     }
 
 

@@ -14,7 +14,8 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
-    public Collection<City> getAllCities() {
+
+    public String getAllCities() {
         return this.cityRepository.getAllCities();
 
     }
@@ -23,5 +24,13 @@ public class CityService {
         City cityObj = this.cityRepository.createCity(city);
         System.out.println("in Cityservice "+ cityObj.toString());
         this.cityRepository.addCity(Integer.parseInt(cityObj.getCityId()), cityObj);
+    }
+
+    public String getCityByName(String cityName) {
+        int location = this.cityRepository.getCityByName(cityName);
+        if(location < 0) {
+            return "{status : \"not found\"}";
+        }
+        return this.cityRepository.getCityById(location);
     }
 }

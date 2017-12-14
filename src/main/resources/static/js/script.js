@@ -1,7 +1,11 @@
 $(document).ready(init);
 
 function init() {
-    $.ajaxSetup({ cache: false, dataType: "json" });
+    $.ajaxSetup({
+        cache: false,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json"
+    });
     $("#btn-add-post").on("click", btnAddCity);
     $("#btn-add-get").on("click", btnGetCityName);
     $("#btn-update").on("click", btnUpdate);
@@ -44,43 +48,31 @@ function btnAddCity() {
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/add',
-        contentType:"application/json; charset=utf-8",
-        dataType:"json",
         data: JSON.stringify(formdata),
         success: function (data) {
-            console.log("loggin data");
-            console.log(data);
-            $("#code-post").append(JSON.stringify(data));
-            // var id = data[0].id;
-            // var name = data[0].name;
-            // var cityID = data[0].cityID;
-            // var main = data[0].main;
-            // var description = data[0].description;
-            // var icon = data[0].icon;
-            // var temp = data[0].temp;
-            //updateFields(id, name, cityID, description, main, icon, temp);
+            $("#code-post").append("city "+ name);
+        },
+        error: function () {
+            $("#code-post").append("error adding city");
         }
     });
 }
 function btnGetCityName() {
     var name = $("#city-name-get").val();
-    console.log(name);
+    var formdata = {city_name : name};
     $.ajax({
         type: 'GET',
-        url: 'http://darcikhey.com/api/v1/weather/get?city_name='+name,
+        url: 'http://localhost:8080/get/'+name,
         success: function (data) {
-            console.log("loggin data");
-            console.log(data)
-            $("#code-get").append(JSON.stringify(data));
-            var id = data[0].id;
-            var name = data[0].name;
-            var cityID = data[0].cityID;
-            var main = data[0].main;
-            var description = data[0].description;
-            var icon = data[0].icon;
-            var temp = data[0].temp;
-
-            updateFields(id, name, cityID, description, main, icon, temp);
+            //$("#code-get").append(JSON.stringify(data));
+            console.log(data);
+            var name = data.name;
+            var cityID = data.id;
+            var temp = data.main.temp;
+            var weatherMain = data.weather[0].description;
+            var weatherMain2 = data.weather[0].main;
+            var icon = data.weather[0].icon;
+            updateFields(cityID, name, cityID, weatherMain, weatherMain2, icon, temp);
         }
     });
 }
