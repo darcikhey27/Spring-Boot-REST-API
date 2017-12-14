@@ -30,12 +30,14 @@ public class CityRepository {
         citiesRepository = new HashMap<>();
         citiesRepository.put(1234, new City("Test", "1234"));
         citiesRepository.put(1212, new City("Seattle", "1212"));
-        addSpokane();
+       creatCity("Spokane");
     }
-    private void addSpokane() {
+    public City creatCity(String cityName) {
 
+        String cityNameJson = "";
+        Integer cityId = 0;
         try {
-            URL urlTest = new URL(BASE_URL+"Spokane"+API_KEY);
+            URL urlTest = new URL(BASE_URL+cityName+API_KEY);
             HttpURLConnection connection = (HttpURLConnection) urlTest.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoOutput(true);
@@ -53,12 +55,12 @@ public class CityRepository {
 
             JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
             JsonObject jsonObject = jsonReader.readObject();
-            String cityName = jsonObject.getString("name");
-            Integer cityId = jsonObject.getInt("id");
+            cityNameJson = jsonObject.getString("name");
+            cityId = jsonObject.getInt("id");
 
 
             // add the city to the db
-            citiesRepository.put(cityId, new City(cityName, cityId.toString()));
+            citiesRepository.put(cityId, new City(cityNameJson, cityId.toString()));
 
         } catch (MalformedURLException e) {
             System.out.println("MalformedURLException--");
@@ -70,6 +72,7 @@ public class CityRepository {
             System.out.println("IOException--");
             System.out.println(e.getMessage());
         }
+        return new City(cityId.toString(), cityName);
     }
 
     public void addCity(Integer id, City city) {

@@ -5,6 +5,7 @@ import com.darcikhey.weather.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.json.JsonObject;
 import java.util.Collection;
 
 @Service
@@ -16,5 +17,11 @@ public class CityService {
     public Collection<City> getAllCities() {
         return this.cityRepository.getAllCities();
 
+    }
+
+    public void add(JsonObject city) {
+        String cityName = city.getString("city_name");
+        City cityObj = this.cityRepository.creatCity(cityName);
+        this.cityRepository.addCity(Integer.parseInt(cityObj.getCityId()), cityObj);
     }
 }
