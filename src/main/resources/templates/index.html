@@ -1,35 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-    <!-- jquery  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous" />
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-        crossorigin="anonymous" />
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-    <script src="/js/script.js"></script>
-    <link rel="stylesheet" href="/css/styles.css" />
-    <title>Darci tiny weather API</title>
-</head>
+<head th:include="/fragments/header :: header"></head>
 
 <body>
-    <div class="container-fluid">
-        <nav class="navbar navbar-light bg-primary" id="navbar">
-            <h1 class="navbar-brand mb-0">Darci Tiny Weather Dashboard API</h1>
-        </nav>
-    </div>
+    <div class="container-fluid" th:include="fragments/nav :: nav"></div>
 
     <div class="container">
         <h4>Before getting any weather information from a city, a city has to added to the database with add api (POST call)
@@ -37,7 +12,6 @@
         <p>use POST to add a city to the database, then use GET to get weather info for that city that you just entered</p>
         <br />
         <div class="row">
-            <p th:text="${name}">some name</p>
             <h3>Weather Widget API</h3>
             <div class="col-md-4">
                 <h4>POST</h4>
