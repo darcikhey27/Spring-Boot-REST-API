@@ -27,7 +27,7 @@ public class CityController {
 
 
     // GET
-    @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-all", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String getAllCities() {
         System.out.println("in getCities");
@@ -41,8 +41,8 @@ public class CityController {
         return this.cityService.getCityByName(cityName);
     }
     // POST will pass in text value
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/add-city", method = RequestMethod.POST)
     public void addCity(@RequestBody String jsonString) {
         JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
         JsonObject jsonObject = jsonReader.readObject();
@@ -70,6 +70,24 @@ public class CityController {
         model.addAttribute("pageTitle", "POST");
         return "post";
     }
+    @RequestMapping("/get")
+    public String get(Model model) {
+        model.addAttribute("pageTitle", "GET");
+        return "get";
+    }
+
+    @RequestMapping("/update")
+    public String update(Model model) {
+        model.addAttribute("pageTitle", "UPDATE");
+        return "update";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(Model model) {
+        model.addAttribute("pageTitle", "DELETE");
+        return "delete";
+    }
+
 
 
 }

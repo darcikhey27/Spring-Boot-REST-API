@@ -6,13 +6,41 @@ function init() {
         contentType:"application/json; charset=utf-8",
         dataType:"json"
     });
-    $("#btn-add-post").on("click", btnAddCity);
-    $("#btn-add-get").on("click", btnGetCityName);
-    $("#btn-update").on("click", btnUpdate);
-    $("#btn-delete").on("click", btnDelete);
-    $("#btn-refresh").on("click", btnRefreshCity);
-    $("#btn-delete").on("click", btnDeleteCity);
+    $("#POST").on("click", add);
+    $("#GET").on("click", get);
+    $("#UPDATE").on("click", update);
+    $("#DELETE").on("click", deletee);
 
+
+}
+function add() {
+    console.log("clicked add button")
+}
+function get() {
+    console.log("clicked get button")
+}
+function update() {
+    console.log("clicked update button")}
+function deletee() {
+    console.log("clicked delete button")
+}
+
+
+/* add a city when the user types in the city name */
+function btnAddCity() {
+    console.log("btn click");
+    // TODO: -> validate name makesure they type a good string
+    var name = $("#city-name").val();
+    var formdata = {city_name : name};
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8090/add-city',
+        data: JSON.stringify(formdata),
+        success: function (data) {
+            console.log(data);
+            $("#output").html("city was added");
+        }
+    });
 }
 
 function btnDelete() {
@@ -35,25 +63,6 @@ function btnUpdate() {
         data: { city_name: name },
         success: function (data) {
             $("#code-update").append(JSON.stringify(data));
-        }
-    });
-}
-
-/* add a city when the user types in the city name */
-function btnAddCity() {
-    console.log("btn click");
-    // TODO: -> validate name makesure they type a good string
-    var name = $("#city-name").val();
-    var formdata = {city_name : name};
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8080/add',
-        data: JSON.stringify(formdata),
-        success: function (data) {
-            $("#code-post").append("city "+ name);
-        },
-        error: function () {
-            $("#code-post").append("error adding city");
         }
     });
 }

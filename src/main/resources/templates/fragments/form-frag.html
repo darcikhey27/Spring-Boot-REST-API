@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<section class="form" th:fragment="form">
+    <p>Enter city <input type="text" id="city-name" placeholder="City"/>
+        <button class="btn btn-primary" th:id="${pageTitle}" th:text="${pageTitle}">default</button>
+    </p>
+    <section class="results">
+        <h3>Results from <span th:text="${pageTitle}"></span></h3>
+    </section>
+</section>
+
+</body>
+</html>
