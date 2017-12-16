@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:include="fragments/header :: header"></head>
+
+<body>
+<div class="container-fluid" th:include="fragments/nav :: nav"></div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-2" th:include="fragments/nav :: sidenav"></div>
+
+        <div class="col-md-10">
+            <h2>text comes from POST</h2>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div class="container" th:include="fragments/footer-frag :: footer"></div>
+</body>
+</html>

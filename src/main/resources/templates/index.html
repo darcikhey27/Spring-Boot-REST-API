@@ -1,151 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<!--head will be inserted here-->
 <head th:include="/fragments/header :: header"></head>
 
 <body>
+
+
+    <!--navbar will be inserted here-->
     <div class="container-fluid" th:include="fragments/nav :: nav"></div>
 
-    <div class="container">
-        <h4>Before getting any weather information from a city, a city has to added to the database with add api (POST call)
-        </h4>
-        <p>use POST to add a city to the database, then use GET to get weather info for that city that you just entered</p>
-        <br />
-        <div class="row">
-            <h3>Weather Widget API</h3>
-            <div class="col-md-4">
-                <h4>POST</h4>
-                <strong>For adding a city to the database </strong>
-                <p>darcikhey.com/api/v1/add?city={city_name}</p>
-                <div class="example-code">
-                    <pre>
-$.ajax({
-    type: 'POST',
-    url: '/api/v1/weather/city/add/',
-    data: { city_name: name },
-    success: function (data) {
-        // do something with data
-    }
-});
-                    </pre>
-                </div>
-            </div>
+    <!--sidenav will be inserted here-->
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-md-2" th:include="fragments/nav :: sidenav"></div>
 
-            <div class="col-md-4">
-                <h4>Test POST <small>type city name</small></h4>
-                <small>add city to database</small>
-                <input type="text" id="city-name"/>
-                <button class="btn btn-danger" id="btn-add-post">Add</button>
-            </div>
-
-            <div class="col-md-4">
-                <h4>Results</h4>
-                <p id="status">status...</p>
-                <p id="code-post"></p>
-            </div>
-        </div>
-    </div>
+           <div class="col-md-10"><h2>some content on index</h2></div>
+       </div>
+   </div>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h4>GET</h4>
-                <strong>For getting a city by name </strong>
-                <p>darcikhey.com/api/v1/weather/get?city_name={city_name}</p>
-                <strong>For getting a city by id </strong>
-                <p>darcikhey.com/api/v1/weather/get?city_id={id_number}</p>
-                <strong>For getting a all cities in database</strong>
-                <p>darcikhey.com/api/v1/weather/get?city_all=all</p>
-                <div class="example-code">
-                    <pre>
-$.ajax({
-    type: 'GET',
-    url: '/api/v1/weather/get?city_name='+name,
-    success: function (data) {
-        // use data
-    }
-});
-                    </pre>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <h4>Test GET <small>type city name</small></h4>
-                <small>get city weather data</small>
-                <input type="text" id="city-name-get" />
-                <button class="btn btn-danger" id="btn-add-get">Get</button>
-            </div>
-            <div class="col-md-4">
-                <h4>Results</h4>
-                <p id="status">status...</p>
-                <p id="code-get"></p>
-
-                <div class="container">
-                    <table class="table" id="my-table">
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h4>UPDATE</h4>
-                <strong>For updating a city weather information by city name</strong>
-                <p>darcikhey.com/api/v1/update?city={city_name}</p>
-                <strong>For updating a city weather information by city id</strong>
-                <p>darcikhey.com/api/v1/update?city_id={id_number}}</p>
-                <strong>To update all cities in database</strong>
-                <p>darcikhey.com/api/v1/update?city=all</p>
-                <br />
-            </div>
-            <div class="col-md-4">
-                <h4>Test UPDATE <small>type city name</small></h4>
-                <small>update weather data</small>
-                <input type="text" id="city-name-update"/>
-                <button class="btn btn-danger" id="btn-update">Update</button>
-            </div>
-            <div class="col-md-4">
-                <h4>Results</h4>
-                <p id="status">status...</p>
-                <p id="code-update"></p>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h4>DELETE</h4>
-                <strong>To delete a city by name</strong>
-                <p>darcikhey.com/api/v1/delete?city={city_name}</p>
-                <strong>To Delete a city by using city_id</strong>
-                <p>darcikhey.com/api/v1/update?city_id={id_number}}</p>
-                <strong>To delete all cities in database</strong>
-                <p>darcikhey.com/api/v1/delete?city=all</p>
-                <br />
-            </div>
-            <div class="col-md-4">
-                <h4>Test DELETE</h4>
-                <small>delete weather data</small>
-                <input type="text" id="city-name-delete"/>
-                <button class="btn btn-danger" id="btn-delete">Delete</button>
-            </div>
-            <div class="col-md-4">
-                <h4>Results</h4>
-                <p id="status">status...</p>
-                <p id="code-delete"></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <footer>
-            <small>weather data provided by
-                <a href="https://openweathermap.org/">OpenWeatherMap</a>
-            </small>
-        </footer>
-    </div>
-
+<div class="container" th:include="fragments/footer-frag :: footer"></div>
 </body>
 
 </html>

@@ -25,10 +25,7 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
-    }
+
     // GET
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
@@ -58,6 +55,20 @@ public class CityController {
     private JsonObject getJsonObj(String s) {
         JsonReader jsonReader = Json.createReader(new StringReader(s));
         return jsonReader.readObject();
+    }
+
+    // site controller
+
+    @RequestMapping("/index")
+    public String index(Model model) {
+        model.addAttribute("pageTitle", "Index Page");
+        return "index";
+    }
+
+    @RequestMapping("/post")
+    public String post(Model model) {
+        model.addAttribute("pageTitle", "POST");
+        return "post";
     }
 
 

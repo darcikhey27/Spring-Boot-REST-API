@@ -30,3 +30,24 @@ pre {
     color: #c0b283;
     text-align: left;
 }
+
+
+/* sidenav styles *************/
+body {
+    padding-top: 20px;
+    background-color: rgb(127, 151, 151);
+}
+
+li {
+    background-color: bisque;
+    border-radius: 5px;
+}
+li a {
+    color: black;
+    font-family: Courier New, Courier, monospace;
+    font-size: 2.5em;
+    text-align: center;
+}
+.nav>li>a:hover {
+    background-color: tomato;
+}
