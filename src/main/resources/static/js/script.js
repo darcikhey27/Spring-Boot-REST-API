@@ -10,14 +10,55 @@ function init() {
     $("#GET").on("click", get);
     $("#UPDATE").on("click", update);
     $("#DELETE").on("click", deletee);
+    $("#show-all").on("click", showAll);
 
 
+}
+function showAll() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8090/get-all',
+        success: function (data) {
+            $("#output-all").html(JSON.stringify(data));
+        }
+    });
+
+    console.log("add function finished");
 }
 function add() {
-    console.log("clicked add button")
+    console.log("clicked add button");
+    var name = $("#city-name").val();
+    console.log("the name of the city is "+ name);
+    var formdata = {city_name : name};
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8090/add-city',
+        data: JSON.stringify(formdata),
+        success: function (data) {
+            // console.log("success");
+            // $("p").html("city was added");
+        }
+    });
+    $("#outputPOST").html("city "+name + " was added");
+    console.log("add function finished");
+
 }
+
+
 function get() {
-    console.log("clicked get button")
+    // get info for one city by cityname
+    var name = $("#city-name").val();
+    console.log(name);
+    var formdata = {city_name : name};
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8090/get-city/'+name,
+        success: function (data) {
+            $("#outputGET").html(JSON.stringify(data));
+        }
+    });
+
+
 }
 function update() {
     console.log("clicked update button")}
@@ -38,7 +79,7 @@ function btnAddCity() {
         data: JSON.stringify(formdata),
         success: function (data) {
             console.log(data);
-            $("#output").html("city was added");
+            $("#outputPOST").html("city was added");
         }
     });
 }

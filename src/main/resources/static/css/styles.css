@@ -1,5 +1,5 @@
 body {
-    background: #DCD0C0;
+    background: ghostwhite;
     color: #373737;
 
 }
@@ -21,15 +21,7 @@ pre {
     font-size: small;
     color: #c12e2a;
 }
-#code-delete,
-#code-update,
-#code-get,
-#code-post {
-    font-family: Courier New, Courier, monospace;
-    font-size: small;
-    color: #c0b283;
-    text-align: left;
-}
+
 
 .col-md-10 {
     text-align: center;
@@ -53,4 +45,14 @@ li a {
 }
 .nav>li>a:hover {
     background-color: tomato;
+}
+.results>p {
+    color: tomato;
+    font-family: Courier New, Courier, monospace;
+    font-size: 1.2em;
+}
+#output-all {
+    color: tomato;
+    font-family: Courier New, Courier, monospace;
+    font-size: 1.5em;
 }

@@ -34,12 +34,15 @@ public class CityController {
         return this.cityService.getAllCities();
     }
 
-    @RequestMapping(value = "/get/{cityName}", method = RequestMethod.GET, produces = "application/json")
+    // GET a city by city-name
+    @RequestMapping(value = "/get-city/{city-name}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public String getCityByName(@PathVariable("cityName") String cityName) {
-        System.out.println("the json string is "+ cityName);
+    public String getCityByName(@PathVariable("city-name") String cityName) {
+        System.out.println(cityName);
         return this.cityService.getCityByName(cityName);
     }
+
+
     // POST will pass in text value
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/add-city", method = RequestMethod.POST)
