@@ -32,7 +32,12 @@ function showAll() {
 function add() {
     console.log("clicked add button");
     var name = $("#city-name").val();
-    console.log("the name of the city is "+ name);
+    var nameReg = /^[a-zA-Z\s+]+/;
+    if(!name.match(nameReg)) {
+        alert("bad city name");
+        return;
+    }
+        console.log("the name of the city is "+ name);
     var formdata = {city_name : name};
     $.ajax({
         type: 'POST',
@@ -52,6 +57,11 @@ function add() {
 function get() {
     // get info for one city by cityname
     var name = $("#city-name").val();
+    var nameReg = /^[a-zA-Z]+/;
+    if(!name.match(nameReg)) {
+        alert("bad city name");
+        return;
+    }
     console.log(name);
     var formdata = {city_name : name};
     $.ajax({
@@ -72,10 +82,33 @@ function get() {
 
 
 }
+
 function update() {
-    console.log("clicked update button")}
+    console.log("clicked update button");
+    var name = $("#city-name").val();
+    var nameReg = /^[a-zA-Z]+/;
+    if(!name.match(nameReg)) {
+        alert("bad city name");
+        return;
+    }
+    console.log("UPDATE, no yet implemented");
+}
+
 function deletee() {
-    console.log("clicked delete button")
+    console.log("clicked delete button");
+    console.log("btn click");
+    var name = $("#city-name").val();
+    var formdata = {city_name : name};
+    console.log("city to delte is "+ name);
+    $.ajax({
+        type: 'DELETE',
+        url: 'http://localhost:8090/delete-city/'+name,
+        data: JSON.stringify(formdata),
+        success: function (data) {
+            console.log(data);
+            $("#outputDELETE").html(name + " was deleted");
+        }
+    });
 }
 
 
@@ -91,11 +124,12 @@ function btnAddCity() {
         data: JSON.stringify(formdata),
         success: function (data) {
             console.log(data);
-            $("#outputPOST").html("city was added");
+            $("#outputDELETE").html("city was added");
         }
     });
 }
 
+/* delete a city from the db */
 function btnDelete() {
     var name = $("#city-name-delete").val();
     $.ajax({

@@ -106,4 +106,9 @@ public class CityRepository {
     public String getCityById(int location) {
         return citiesJsonRepo.get(location).toString();
     }
+
+    public void deleteById(int location) {
+        citiesJsonRepo.remove(location);
+        citiesRepository.remove(location);
+    }
 }

@@ -33,4 +33,12 @@ public class CityService {
         }
         return this.cityRepository.getCityById(location);
     }
+
+    public void deleteByName(String cityName) {
+        int location = this.cityRepository.getCityByName(cityName);
+        if(location < 0) {
+            return;
+        }
+        this.cityRepository.deleteById(location);
+    }
 }
