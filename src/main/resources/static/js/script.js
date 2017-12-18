@@ -20,6 +20,10 @@ function showAll() {
         url: 'http://localhost:8090/get-all',
         success: function (data) {
             $("#output-all").html(JSON.stringify(data));
+
+            //TODO: show all movies in the front-end
+
+
         }
     });
 
@@ -55,6 +59,14 @@ function get() {
         url: 'http://localhost:8090/get-city/'+name,
         success: function (data) {
             $("#outputGET").html(JSON.stringify(data));
+            var name = data.name;
+            var cityID = data.id;
+            var temp = data.main.temp;
+            var weatherMain = data.weather[0].description;
+            var weatherMain2 = data.weather[0].main;
+            var icon = data.weather[0].icon;
+            updateFields(cityID, name, cityID, weatherMain, weatherMain2, icon, temp);
+
         }
     });
 
@@ -128,6 +140,7 @@ function btnGetCityName() {
 }
 /* update the fields for each temp widget via a json object */
 function updateFields(id, name, cityID, description, main, icon, temp) {
+    console.log("this data should be updated");
     console.log(id);
     console.log(name);
     console.log(cityID);
@@ -136,10 +149,19 @@ function updateFields(id, name, cityID, description, main, icon, temp) {
     console.log(temp);
     //TODO: get a hold of all field
 
-    $("#my-table").append("<tr id='tr" + cityID + "'></tr>")
-    $("#my-table tr:last").append(
-        "<td><div class='widget'><h3 id='city-name'>City: " + name + "</h3><p id='temp'>temp: " + temp + "</p><p id='icon-url'></p><p id='description'>Description: "+main +", "+ description + " </p><p id='city-id'>CityID: " + cityID + "</p>"+
-        "<button class='btn btn-success'>refresh</button><button class='btn btn-danger'>delete</button></div></td>"
+    $("#my-table").append("<td id='tr" + cityID + "'></td>");
+    $("#my-table td:last").append(
+        "<div class='widget'><h3 id='city-name'>City: " + name + "</h3><p id='temp'>temp: " + temp + "</p><p id='icon-url'></p><p id='description'>Description: "+main +", "+ description + " </p><p id='city-id'>CityID: " + cityID + "</p>"+
+        "</div>"
+
+
+
+
+
+    // $("#my-table").append("<tr id='tr" + cityID + "'></tr>");
+    // $("#my-table tr:last").append(
+    //     "<td><div class='widget'><h3 id='city-name'>City: " + name + "</h3><p id='temp'>temp: " + temp + "</p><p id='icon-url'></p><p id='description'>Description: "+main +", "+ description + " </p><p id='city-id'>CityID: " + cityID + "</p>"+
+    //     "</div></td>"
 
     );
 
