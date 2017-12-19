@@ -6,14 +6,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class WeatherApplication extends SpringBootServletInitializer{
+public class WeatherApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WeatherApplication.class, args);
 	}
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(WeatherApplication.class);
-	}
 }
