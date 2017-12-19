@@ -38,6 +38,7 @@ public class CityController {
     @RequestMapping(value = "/get-city/{city-name}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public String getCityByName(@PathVariable("city-name") String cityName) {
+
         if(!cityName.matches("^(?i)([a-zA-z\\s+]+)")) {
             return "{status : \"bad string\"}";
         }
@@ -50,11 +51,12 @@ public class CityController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/add-city", method = RequestMethod.POST)
     public void addCity(@RequestBody String jsonString) {
-        if(!jsonString.matches("^(?i)([a-zA-z\\s+]+)")) {
-            return;
-        }
         JsonObject jsonObject = getJsonObj(jsonString);
         String city_name = jsonObject.getString("city_name");
+        if(!city_name.matches("^(?i)([a-zA-z\\s+]+)")) {
+            return;
+        }
+
         System.out.println(city_name);
         this.cityService.add(city_name);
     }
@@ -95,7 +97,7 @@ public class CityController {
     *  returns a html view called index
     *  */
 
-    @RequestMapping(value = {"/index", "/"})
+    @RequestMapping(value = {"/", "/index"})
     public String index(Model model) {
         model.addAttribute("pageTitle", "Index Page");
         return "index";

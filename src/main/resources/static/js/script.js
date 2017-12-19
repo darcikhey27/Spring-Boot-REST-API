@@ -15,9 +15,11 @@ function init() {
 
 }
 function showAll() {
+    //url: 'http://localhost:8080/weather/get-all',
+    //url: 'http://localhost:8090/get-all',
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8090/get-all',
+        url: 'http://dkheyapp-env.us-west-2.elasticbeanstalk.com/get-all',
         success: function (data) {
             $("#output-all").html(JSON.stringify(data));
 
@@ -39,9 +41,12 @@ function add() {
     }
         console.log("the name of the city is "+ name);
     var formdata = {city_name : name};
+    //url: 'http://localhost:8080/weather/add-city',
+
+    //url: 'http://localhost:8090/add-city',
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8090/add-city',
+        url: 'http://dkheyapp-env.us-west-2.elasticbeanstalk.com/add-city',
         data: JSON.stringify(formdata),
         success: function (data) {
             // console.log("success");
@@ -64,9 +69,11 @@ function get() {
     }
     console.log(name);
     var formdata = {city_name : name};
+    //
+    //'http://localhost:8090/get-city/'+name,
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8090/get-city/'+name,
+        url: 'http://dkheyapp-env.us-west-2.elasticbeanstalk.com/get-city/'+name,
         success: function (data) {
             $("#outputGET").html(JSON.stringify(data));
             var name = data.name;
@@ -100,9 +107,10 @@ function deletee() {
     var name = $("#city-name").val();
     var formdata = {city_name : name};
     console.log("city to delte is "+ name);
+    //url: 'http://localhost:8080/weather/delete-city/'+name,
     $.ajax({
         type: 'DELETE',
-        url: 'http://localhost:8090/delete-city/'+name,
+        url: 'http://dkheyapp-env.us-west-2.elasticbeanstalk.com/delete-city/'+name,
         data: JSON.stringify(formdata),
         success: function (data) {
             console.log(data);
@@ -111,67 +119,6 @@ function deletee() {
     });
 }
 
-
-/* add a city when the user types in the city name */
-function btnAddCity() {
-    console.log("btn click");
-    // TODO: -> validate name makesure they type a good string
-    var name = $("#city-name").val();
-    var formdata = {city_name : name};
-    $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8090/add-city',
-        data: JSON.stringify(formdata),
-        success: function (data) {
-            console.log(data);
-            $("#outputDELETE").html("city was added");
-        }
-    });
-}
-
-/* delete a city from the db */
-function btnDelete() {
-    var name = $("#city-name-delete").val();
-    $.ajax({
-        type: 'POST',
-        url: 'http://darcikhey.com/api/v1/weather/city/delete/',
-        data: { city_name: name },
-        success: function (data) {
-            $("#code-delete").append(JSON.stringify(data));
-        }
-    });
-}
-
-function btnUpdate() {
-    var name = $("#city-name-update").val();
-    $.ajax({
-        type: 'POST',
-        url: 'http://darcikhey.com/api/v1/weather/city/update/',
-        data: { city_name: name },
-        success: function (data) {
-            $("#code-update").append(JSON.stringify(data));
-        }
-    });
-}
-function btnGetCityName() {
-    var name = $("#city-name-get").val();
-    var formdata = {city_name : name};
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/get/'+name,
-        success: function (data) {
-            //$("#code-get").append(JSON.stringify(data));
-            console.log(data);
-            var name = data.name;
-            var cityID = data.id;
-            var temp = data.main.temp;
-            var weatherMain = data.weather[0].description;
-            var weatherMain2 = data.weather[0].main;
-            var icon = data.weather[0].icon;
-            updateFields(cityID, name, cityID, weatherMain, weatherMain2, icon, temp);
-        }
-    });
-}
 /* update the fields for each temp widget via a json object */
 function updateFields(id, name, cityID, description, main, icon, temp) {
     console.log("this data should be updated");
@@ -187,10 +134,6 @@ function updateFields(id, name, cityID, description, main, icon, temp) {
     $("#my-table td:last").append(
         "<div class='widget'><h3 id='city-name'>City: " + name + "</h3><p id='temp'>temp: " + temp + "</p><p id='icon-url'></p><p id='description'>Description: "+main +", "+ description + " </p><p id='city-id'>CityID: " + cityID + "</p>"+
         "</div>"
-
-
-
-
 
     // $("#my-table").append("<tr id='tr" + cityID + "'></tr>");
     // $("#my-table tr:last").append(
@@ -212,9 +155,3 @@ function updateFields(id, name, cityID, description, main, icon, temp) {
 
 }
 
-function btnRefreshCity() {
-
-}
-function btnDeleteCity() {
-
-}

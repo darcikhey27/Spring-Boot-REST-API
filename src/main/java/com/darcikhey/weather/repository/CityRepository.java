@@ -95,6 +95,8 @@ public class CityRepository {
         for (int i : citiesRepository.keySet()) {
             if(citiesRepository.get(i).getName().equalsIgnoreCase(cityName)) {
                 found = i;
+                System.out.println("found: "+ found);
+                return found;
             }
         }
         if(found >= 0) {
